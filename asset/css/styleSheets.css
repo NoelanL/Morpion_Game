@@ -11,7 +11,7 @@ body{
     flex-direction: row;
     flex-wrap: wrap;
     width: 700px;
-    margin-top: 15%;
+    margin-top: 20%;
 }
 
 #square1, #square2, #square4, #square5{

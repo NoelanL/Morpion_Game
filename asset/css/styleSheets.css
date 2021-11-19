@@ -1,0 +1,39 @@
+body{
+    background-image: url("/asset/img/bloc-paperboard-a-carreau-pas-cher.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+}
+
+#paper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 700px;
+    margin-top: 15%;
+}
+
+#square1, #square2, #square4, #square5{
+    border-right: 4px solid black;
+    border-bottom: 4px solid black;
+    height: 200px;
+    width: 200px;
+}
+
+#square3, #square6{
+    border-bottom: 4px solid black;
+    height: 200px;
+    width: 200px;
+}
+
+#square9, #square8{
+    border-left: 4px solid black;
+    height: 200px;
+    width: 200px;
+}
+
+#square7{
+    height: 200px;
+    width: 200px;
+}

@@ -97,15 +97,15 @@ function checkWinner(pions, joueurs, tour) {
 }
 
 function matchNul(pions) {
-    for (var i = 0, len = pions.length; i < len; i++) {
+    for (let i = 0, len = pions.length; i < len; i++) {
         if (pions[i].innerHTML.length == 0) return false;
     }
 
     return true;
 }
 
-var Afficheur = function(element) {
-    var affichage = element;
+let Afficheur = function(element) {
+    let affichage = element;
 
     function setText(message) {
         affichage.innerHTML = message;
@@ -115,17 +115,17 @@ var Afficheur = function(element) {
 };
 
 function main() {
-    var pions = document.querySelectorAll("#paper button");
-    var joueurs = ["X", "O"];
-    var tour = 0;
-    var jeuEstFini = false;
-    var afficheur = new Afficheur(document.querySelector("#avancerDuJeu"));
+    let pions = document.querySelectorAll("#paper button");
+    let joueurs = ["X", "O"];
+    let tour = 0;
+    let jeuEstFini = false;
+    let afficheur = new Afficheur(document.querySelector("#avancerDuJeu"));
     afficheur.sendMessage(
         "Le jeu peut commencer ! <br /> Joueur " +
         joueurs[tour] +
         " c'est votre tour."
     );
-    for (var i = 0, len = pions.length; i < len; i++) {
+    for (let i = 0, len = pions.length; i < len; i++) {
         pions[i].addEventListener("click", function() {
             if (jeuEstFini) return;
 

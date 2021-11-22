@@ -1,9 +1,14 @@
 body{
-    background-image: url("/asset/img/bloc-paperboard-a-carreau-pas-cher.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color: #14bdac;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+}
+
+h1{
+    font-size: 50px;
+    color: red;
 }
 
 #paper{
@@ -11,29 +16,38 @@ body{
     flex-direction: row;
     flex-wrap: wrap;
     width: 700px;
-    margin-top: 20%;
+    margin-left: 5%;
+}
+
+button{
+    border: none;
+    background-color: #14bdac;
+    height: 200px;
+    width: 200px;
+    font-size: 50px;
 }
 
 #square1, #square2, #square4, #square5{
-    border-right: 4px solid black;
-    border-bottom: 4px solid black;
-    height: 200px;
-    width: 200px;
+    border-right: 8px solid #0da192;
+    border-bottom: 8px solid #0da192;
 }
 
 #square3, #square6{
-    border-bottom: 4px solid black;
-    height: 200px;
-    width: 200px;
+    border-bottom: 8px solid #0da192;
 }
 
-#square9, #square8{
-    border-left: 4px solid black;
-    height: 200px;
-    width: 200px;
+#square7, #square8{
+    border-right: 8px solid #0da192;
 }
 
-#square7{
-    height: 200px;
-    width: 200px;
+#avancerDuJeu{
+    font-size: 25px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 5%;
+    font-family: "Roboto Light", sans-serif;
+    border: 8px solid #0da192;
+    width: 700px;
+    padding: 10px;
 }

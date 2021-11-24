@@ -1,165 +1,200 @@
-function check(button) {
-    return button.innerHTML.length == 0;
-}
+let firstLine = document.getElementById('first-line');
+let secondLine = document.getElementById('second-line');
+let threeLine = document.getElementById('three-line');
+let caseDifferent = document.querySelectorAll('.square1, .square2, .square3');
+let player1color = 'rgb(112, 183, 250)';
+let player2color = 'rgb(250, 112, 168)';
+const RIGHT_BUTTON = 0;
+const LEFT_BUTTON = 2;
 
-function addSymbol(btn, symbole) {
-    btn.innerHTML = symbole;
-}
+document.addEventListener('contextmenu', function (event){
+    event.preventDefault();
+});
 
-function checkWinner(pions, joueurs, tour) {
-    if (
-        pions[0].innerHTML == joueurs[tour] &&
-        pions[1].innerHTML == joueurs[tour] &&
-        pions[2].innerHTML == joueurs[tour]
-    ) {
-        pions[0].style.backgroundColor = "#65BDF9";
-        pions[1].style.backgroundColor = "#65BDF9";
-        pions[2].style.backgroundColor = "#65BDF9";
-        return true;
-    }
+/* Gérer le click de différent joueurs ! */
+for (let i = 0; i < caseDifferent.length; i++){
+    caseDifferent.item(i).addEventListener('mouseup', function(event){
+        switch(event.button){
+            case RIGHT_BUTTON:
+                firstPlayer(caseDifferent.item(i));
+                break;
+            case LEFT_BUTTON:
+                secondPlayer(this);
+                break;
+        }
 
-    if (
-        pions[3].innerHTML == joueurs[tour] &&
-        pions[4].innerHTML == joueurs[tour] &&
-        pions[5].innerHTML == joueurs[tour]
-    ) {
-        pions[3].style.backgroundColor = "#65BDF9";
-        pions[4].style.backgroundColor = "#65BDF9";
-        pions[5].style.backgroundColor = "#65BDF9";
-        return true;
-    }
-
-    if (
-        pions[6].innerHTML == joueurs[tour] &&
-        pions[7].innerHTML == joueurs[tour] &&
-        pions[8].innerHTML == joueurs[tour]
-    ) {
-        pions[6].style.backgroundColor = "#65BDF9";
-        pions[7].style.backgroundColor = "#65BDF9";
-        pions[8].style.backgroundColor = "#65BDF9";
-        return true;
-    }
-
-    if (
-        pions[0].innerHTML == joueurs[tour] &&
-        pions[3].innerHTML == joueurs[tour] &&
-        pions[6].innerHTML == joueurs[tour]
-    ) {
-        pions[0].style.backgroundColor = "#65BDF9";
-        pions[3].style.backgroundColor = "#65BDF9";
-        pions[6].style.backgroundColor = "#65BDF9";
-        return true;
-    }
-
-    if (
-        pions[1].innerHTML == joueurs[tour] &&
-        pions[4].innerHTML == joueurs[tour] &&
-        pions[7].innerHTML == joueurs[tour]
-    ) {
-        pions[1].style.backgroundColor = "#65BDF9";
-        pions[4].style.backgroundColor = "#65BDF9";
-        pions[7].style.backgroundColor = "#65BDF9";
-        return true;
-    }
-
-    if (
-        pions[2].innerHTML == joueurs[tour] &&
-        pions[5].innerHTML == joueurs[tour] &&
-        pions[8].innerHTML == joueurs[tour]
-    ) {
-        pions[2].style.backgroundColor = "#65BDF9";
-        pions[5].style.backgroundColor = "#65BDF9";
-        pions[8].style.backgroundColor = "#65BDF9";
-        return true;
-    }
-
-    if (
-        pions[0].innerHTML == joueurs[tour] &&
-        pions[4].innerHTML == joueurs[tour] &&
-        pions[8].innerHTML == joueurs[tour]
-    ) {
-        pions[0].style.backgroundColor = "#65BDF9";
-        pions[4].style.backgroundColor = "#65BDF9";
-        pions[8].style.backgroundColor = "#65BDF9";
-        return true;
-    }
-
-    if (
-        pions[2].innerHTML == joueurs[tour] &&
-        pions[4].innerHTML == joueurs[tour] &&
-        pions[6].innerHTML == joueurs[tour]
-    ) {
-        pions[2].style.backgroundColor = "#65BDF9";
-        pions[4].style.backgroundColor = "#65BDF9";
-        pions[6].style.backgroundColor = "#65BDF9";
-        return true;
-    }
-}
-
-function matchNul(pions) {
-    for (let i = 0, len = pions.length; i < len; i++) {
-        if (pions[i].innerHTML.length == 0) return false;
-    }
-
-    return true;
-}
-
-let Afficheur = function(element) {
-    let affichage = element;
-
-    function setText(message) {
-        affichage.innerHTML = message;
-    }
-
-    return { sendMessage: setText };
-};
-
-function main() {
-    let pions = document.querySelectorAll("#paper button");
-    let joueurs = ["X", "O"];
-    let tour = 0;
-    let jeuEstFini = false;
-    let afficheur = new Afficheur(document.querySelector("#avancerDuJeu"));
-    afficheur.sendMessage(
-        "Le jeu peut commencer ! <br /> Joueur " +
-        joueurs[tour] +
-        " c'est votre tour."
-    );
-    for (let i = 0, len = pions.length; i < len; i++) {
-        pions[i].addEventListener("click", function() {
-            if (jeuEstFini) return;
-
-            if (!check(this)) {
-                afficheur.sendMessage(
-                    "Case occupée ! <br />Joueur " +
-                    joueurs[tour] +
-                    " c'est toujours à vous !"
-                );
-            } else {
-                addSymbol(this, joueurs[tour]);
-                jeuEstFini = checkWinner(pions, joueurs, tour);
-
-                if (jeuEstFini) {
-                    afficheur.sendMessage(
-                        "Le joueur " +
-                        joueurs[tour] +
-                        ' a gagné !');
-                    return;
-                }
-
-                if (matchNul(pions)) {
-                    afficheur.sendMessage(
-                        'Match Nul ! <br/> <a href="/asset/html/index.html">Rejouer</a>'
-                    );
-                    return;
-                }
-
-                tour++;
-                tour = tour % 2;
-                afficheur.sendMessage("Joueur " + joueurs[tour] + " c'est à vous !");
+        /* Attribuer le signe "X" au premier joueur */
+        function firstPlayer(parent){
+            if (parent.children.length === 0){
+                let playerX = document.createElement('p');
+                playerX.style.backgroundColor = player1color;
+                playerX.innerHTML = "X";
+                playerX.style.color = "blue";
+                parent.append(playerX);
             }
-        });
+        }
+
+        /* Attribuer le signe "O" au deuxiéme joueur */
+        function secondPlayer(parent){
+            if (parent.children.length === 0){
+                let playerO = document.createElement('p');
+                playerO.style.backgroundColor = player2color;
+                playerO.innerHTML = "O";
+                playerO.style.color = "red";
+                parent.append(playerO);
+            }
+        }
+
+        let winnerH = verifieLaVictoireHorizontale();
+        if (winnerH !== false){
+            alert(winnerH);
+        }
+        let winnerV = verifieLaVictoireVerticale();
+        if (winnerV !== false){
+            alert(winnerV);
+        }
+        let winnerD = verifieLaVictoireDiagonale();
+        if (winnerD !== false){
+            alert(winnerD);
+        }
+    });
+}
+
+/* Vérification du gagnant à l'horizontale' */
+function verifieLaVictoireHorizontale(){
+    let squareLine1 = firstLine.getElementsByTagName('div');
+    let firstPlayerScore = 0;
+    let secondPlayerScore = 0;
+
+    for(let i = 0; i < squareLine1.length; i++){
+        let paragraph = squareLine1.item(i).getElementsByTagName('p');
+        if (paragraph.length > 0){
+            if (paragraph.item(0).style.backgroundColor === player1color){
+                firstPlayerScore++;
+            }
+            else if (paragraph.item(0).style.backgroundColor === player2color){
+                secondPlayerScore++;
+            }
+            if (firstPlayerScore === 3){
+                return "Félicitation joueur numéro 1 !";
+            }
+            else if (secondPlayerScore === 3){
+                return "Félicitation joueur numéro 2 !";
+            }
+        }
+    }
+
+
+    let squareLine2 = secondLine.getElementsByTagName('div');
+    firstPlayerScore = 0;
+    secondPlayerScore = 0;
+
+    for (let i = 0; i < squareLine2.length; i++) {
+        let paragraph = squareLine2.item(i).getElementsByTagName('p');
+        if (paragraph.length > 0) {
+            if (paragraph.item(0).style.backgroundColor === player1color) {
+                firstPlayerScore++;
+            }
+            else if (paragraph.item(0).style.backgroundColor === player2color) {
+                secondPlayerScore++;
+            }
+            if (firstPlayerScore === 3) {
+                return "Félicitation joueur numéro 1 !";
+            }
+            else if (secondPlayerScore === 3) {
+                return "Félicitation joueur numéro 2 !";
+            }
+        }
+    }
+
+    let squareLine3 = threeLine.getElementsByTagName('div');
+    firstPlayerScore = 0;
+    secondPlayerScore = 0;
+
+     for (let i = 0; i < squareLine3.length; i++) {
+         let paragraph = squareLine3.item(i).getElementsByTagName('p');
+         if (paragraph.length > 0) {
+             if (paragraph.item(0).style.backgroundColor === player1color) {
+                 firstPlayerScore++;
+             }
+             else if (paragraph.item(0).style.backgroundColor === player2color) {
+                 secondPlayerScore++;
+             }
+             if (firstPlayerScore === 3) {
+                 return "Félicitation joueur numéro 1 !";
+             }
+             else if (secondPlayerScore === 3) {
+                 return "Félicitation joueur numéro 2 !";
+             }
+         }
     }
 }
 
-main();
+/* Vérifications du gagnant à verticale */
+function verifieLaVictoireVerticale(){
+    let squareLine1 = document.querySelectorAll('#line-one, #line-one1, #line-one2');
+    let firstPlayerScore = 0;
+    let secondPlayerScore = 0;
+
+    for (let i = 0; i < squareLine1.length; i++){
+        let paragraph = squareLine1.item(i).getElementsByTagName('p');
+        if (paragraph.length > 0){
+            if (paragraph.item(0).style.backgroundColor === player1color){
+                firstPlayerScore++;
+            }
+            else if (paragraph.item(0).style.backgroundColor === player2color){
+                secondPlayerScore++;
+            }
+            if (firstPlayerScore === 3){
+                return "Félicitation joueur numéro 1 !";
+            }
+            else if (secondPlayerScore === 3){
+                return "Félicitation joueur numéro 2 !";
+            }
+        }
+    }
+
+    let squareLine2 = document.querySelectorAll('#line-second, #line-second1, #line-second2');
+    firstPlayerScore = 0;
+    secondPlayerScore = 0;
+
+    for (let i = 0; i < squareLine2.length; i++){
+        let paragraph = squareLine2.item(i).getElementsByTagName('p');
+        if (paragraph.length < 0){
+            if (paragraph.item(0).style.backgroundColor === player1color){
+                firstPlayerScore++;
+            }
+            else if (paragraph.item(0).style.backgroundColor === player2color){
+                secondPlayerScore++;
+            }
+            if (firstPlayerScore === 3){
+                return "Félicitation joueur numéro 1 !";
+            }
+            else if (secondPlayerScore === 3){
+                return "Félicitation joueur numéro 2 !";
+            }
+        }
+    }
+
+    let squareLine3 = document.querySelectorAll('#line-three, #line-three1, #line-three2');
+    firstPlayerScore = 0;
+    secondPlayerScore = 0;
+
+    for (let i = 0; i < squareLine3.length; i++){
+        let paragraph = squareLine3.item(i).getElementsByTagName('p');
+        if (paragraph.length < 0){
+            if (paragraph.item(0).style.backgroundColor === player1color){
+                firstPlayerScore++;
+            }
+            else if (paragraph.item(0).style.backgroundColor === player2color){
+                secondPlayerScore++;
+            }
+            if (firstPlayerScore === 3){
+                return "Félicitation joueur numéro 1 !";
+            }
+            else if (secondPlayerScore === 3){
+                return "Félicitation joueur numéro 2 !";
+            }
+        }
+    }
+}

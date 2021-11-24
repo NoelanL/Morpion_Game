@@ -19,25 +19,46 @@ h1{
     margin-left: 5%;
 }
 
-button{
-    border: none;
-    background-color: #14bdac;
+#first-line{
+    display: flex;
+    flex-direction: row;
+}
+
+#second-line{
+    display: flex;
+    flex-direction: row;
+}
+
+#three-line{
+    display: flex;
+    flex-direction: row;
+}
+
+.square1, .square2, .square3{
+    border-right: 8px solid #0da192;
+    border-bottom: 8px solid #0da192;
     height: 200px;
     width: 200px;
-    font-size: 50px;
+    font-size: 70px;
+    text-align: center;
+    font-family: "Roboto Light", sans-serif;
 }
 
-#square1, #square2, #square4, #square5{
+.square3{
+    border-right: none;
+}
+
+#three-line .square1{
     border-right: 8px solid #0da192;
-    border-bottom: 8px solid #0da192;
+    border-bottom: none;
 }
 
-#square3, #square6{
-    border-bottom: 8px solid #0da192;
+#three-line .square2{
+    border-bottom: none;
 }
 
-#square7, #square8{
-    border-right: 8px solid #0da192;
+#three-line .square3{
+    border-bottom: none;
 }
 
 #avancerDuJeu{
@@ -61,7 +82,7 @@ button{
         width: 500px;
     }
 
-    button{
+    .square1 .square2 .square3{
         width: 150px;
         height: 150px;
     }
@@ -76,7 +97,7 @@ button{
         width: 325px;
     }
 
-    button{
+    .square1 .square2 .square3{
         width: 100px;
         height: 100px;
     }
@@ -92,7 +113,7 @@ button{
         font-size: 25px;
     }
 
-    button{
+    .square1 .square2 .square3{
         width: 75px;
         height: 75px;
     }
